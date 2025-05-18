@@ -8,7 +8,7 @@ export const isValid = (schema) => {
       });
       next();
     } catch (error) {
-      next(createHttpError(400, 'Bad request', { error }));
+      next(createHttpError(400, error));
     }
   };
 };
