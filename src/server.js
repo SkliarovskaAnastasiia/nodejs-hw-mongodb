@@ -1,27 +1,22 @@
 import express from 'express';
 import cors from 'cors';
 import pino from 'pino-http';
+import cookieParser from 'cookie-parser';
 import { getEnvVal } from './utils/getEnvVal.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/noFoundHandler.js';
-import contactRouter from './routers/contacts.js';
+import router from './routers/index.js';
 
 const PORT = Number(getEnvVal('PORT', '3000'));
 
 const setupServer = () => {
   const app = express();
 
-  app.use(
-    express.json({
-      type: ['application/json', 'application/vnd.api+json'],
-      limit: '100kb',
-    }),
-  );
-
   app.use(cors());
   app.use(pino({ transport: { target: 'pino-pretty' } }));
+  app.use(cookieParser());
 
-  app.use(contactRouter);
+  app.use(router);
   app.use(notFoundHandler);
   app.use(errorHandler);
 
