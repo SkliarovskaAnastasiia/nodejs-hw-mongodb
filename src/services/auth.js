@@ -51,10 +51,10 @@ export const refreshSession = async ({ sessionId, refreshToken }) => {
 
   const newSession = createSession();
 
-  return {
+  return await sessionsCollection.create({
     userId: session.userId,
     ...newSession,
-  };
+  });
 };
 
 export const logoutUser = async (sessionId, refreshToken) => {
