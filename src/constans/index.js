@@ -1,5 +1,5 @@
 import path from 'node:path';
-import fs from 'node:fs/promises';
+import fs from 'node:fs';
 
 export const SORT_ORDER = {
   ASC: 'asc',
@@ -21,3 +21,12 @@ export const RESET_PASSWORD_TEMPLATE = fs.readFileSync(
   path.resolve('src', 'templates', 'reset-password-email.hbs'),
   'UTF-8',
 );
+
+export const TMP_UPLOAD_DIR = path.resolve('src', 'tmp');
+export const UPLOAD_DIR = path.resolve('src', 'uploads', 'photos');
+
+export const CLOUDINARY = {
+  CLOUD_NAME: 'CLOUD_NAME',
+  API_KEY: 'API_KEY',
+  API_SECRET: 'API_SECRET',
+};

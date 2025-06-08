@@ -1,3 +1,9 @@
+/src/tmp/*
+!/src/tmp/.gitkeep
+
+/src/upload/photos/*
+!src/upload/photos/.gitkeep
+
 # Logs
 logs
 *.log

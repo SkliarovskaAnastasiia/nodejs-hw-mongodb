@@ -103,7 +103,7 @@ export const resetPassword = async ({ password, token }) => {
     await usersCollection.findByIdAndUpdate(user._id, {
       password: encreptedPassword,
     });
-  } catch (err) {
+  } catch {
     throw new createHttpError.Unauthorized('Token is expired or invalid');
   }
 };

@@ -1,3 +1,5 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
 import {
   createContact,
   deleteContact,
@@ -8,6 +10,9 @@ import createHttpError from 'http-errors';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseOrderParams } from '../utils/parseOrderParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
+import { uploadToCloudinary } from '../utils/uploadToCloudinary.js';
+import { UPLOAD_DIR } from '../constans/index.js';
+import { getEnvVal } from '../utils/getEnvVal.js';
 
 export const getContactsController = async (req, res, next) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -51,7 +56,20 @@ export const getContactByIdController = async (req, res, next) => {
 };
 
 export const createContactController = async (req, res, next) => {
-  const contact = await createContact({ ...req.body, userId: req.user._id });
+  let photo = null;
+
+  if (getEnvVal('UPLOAD_TO_CLOUDINARY') === 'true') {
+    photo = await uploadToCloudinary(req.file.path);
+  } else {
+    await fs.rename(req.file.path, path.resolve(UPLOAD_DIR, req.file.filename));
+    photo = `http://localhost:8080/photos/${req.file.filename}`;
+  }
+
+  const contact = await createContact({
+    ...req.body,
+    userId: req.user._id,
+    photo,
+  });
 
   res.status(201).json({
     status: 201,
@@ -64,7 +82,19 @@ export const pathcContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const userId = req.user._id;
 
-  const contact = await updateContact(contactId, userId, req.body);
+  let photo = null;
+
+  if (getEnvVal('UPLOAD_TO_CLOUDINARY') === 'true') {
+    photo = await uploadToCloudinary(req.file.path);
+  } else {
+    await fs.rename(req.file.path, path.resolve(UPLOAD_DIR, req.file.filename));
+    photo = `http://localhost:8080/photos/${req.file.filename}`;
+  }
+
+  const contact = await updateContact(contactId, userId, {
+    ...req.body,
+    photo,
+  });
 
   if (!contact) {
     throw createHttpError(404, 'Contact not found');

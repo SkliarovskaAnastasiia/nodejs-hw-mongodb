@@ -7,13 +7,14 @@ import {
   pathcContactController,
   deleteContactController,
 } from '../controllers/contacts.js';
-import { isValid } from '../middlewares/isValid.js';
 import {
   createContactShema,
   updateContactSchema,
 } from '../validation/contacts.js';
+import { isValid } from '../middlewares/isValid.js';
 import { isValidId } from '../middlewares/isValidId.js';
 import { authenticate } from '../middlewares/authenticate.js';
+import { upload } from '../middlewares/upload.js';
 
 const router = Router();
 
@@ -30,6 +31,7 @@ router.get('/:contactId', isValidId, ctrlWrapper(getContactByIdController));
 
 router.post(
   '/',
+  upload.single('photo'),
   jsonParser,
   isValid(createContactShema),
   ctrlWrapper(createContactController),
@@ -37,6 +39,7 @@ router.post(
 
 router.patch(
   '/:contactId',
+  upload.single('photo'),
   jsonParser,
   isValidId,
   isValid(updateContactSchema),
