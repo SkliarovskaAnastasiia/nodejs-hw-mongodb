@@ -1,0 +1,32 @@
+type: object
+required:
+  - data
+  - totalItems
+  - page
+  - perPage
+  - totalPages
+  - hasNextPage
+  - hasPreviousPage
+properties:
+  data:
+    type: array
+    items:
+      $ref: ../schemas/contact.yaml
+  totalItems:
+    type: number
+    example: 10
+  page:
+    type: number
+    example: 1
+  perPage:
+    type: number
+    example: 10
+  totalPages:
+    type: number
+    example: 2
+  hasNextPage:
+    type: boolean
+    example: true
+  hasPreviousPage:
+    type: boolean
+    example: false
