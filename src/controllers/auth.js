@@ -10,7 +10,7 @@ import { setupCookies } from '../utils/setupSession.js';
 
 export const registerController = async (req, res) => {
   const user = await registerUser(req.body);
-
+  console.log(user);
   res.status(201).json({
     status: 201,
     message: 'Successfully registered a user',

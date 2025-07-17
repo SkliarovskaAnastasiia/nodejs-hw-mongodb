@@ -8,7 +8,9 @@ info:
   description: Documentation of contacts book
 tags:
   - name: Contacts
-    description: Operations with contscts
+    description: Operations with contacts
+  - name: Auth
+    description: Authorization
 servers:
   - url: http://127.0.0.1:8080
   - url: https://contacts-g220.onrender.com
@@ -25,6 +27,18 @@ paths:
       $ref: '../swagger/path/contacts/get.yaml'
     post:
       $ref: '../swagger/path/contacts/post.yaml'
+  /auth/register:
+    post:
+      $ref: '../swagger/path/auth/post.register.yaml'
+  /auth/login:
+    post:
+      $ref: '../swagger/path/auth/post.login.yaml'
+  /auth/refresh:
+    post:
+      $ref: '../swagger/path/auth/post.refresh.yaml'
+  /auth/logout:
+    post:
+      $ref: '../swagger/path/auth/post.logout.yaml'
 components:
   securitySchemes:
     bearerAuth:

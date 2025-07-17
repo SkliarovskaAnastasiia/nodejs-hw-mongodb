@@ -1,0 +1,38 @@
+tags:
+  - Auth
+summary: Refresh route
+operationId: refresh
+description: Refresh user
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: Refreshed a session
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully refreshed a session
+            data:
+              type: object
+              required:
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  description: Refresh user access token
+                  example: ClgQfWukUyfcUVv3uhfVEzSS2iWItcj7byNYjHL5
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '500':
+    $ref: '../../components/responses/500.yaml'

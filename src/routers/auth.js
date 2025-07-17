@@ -54,4 +54,5 @@ router.post(
   isValid(resetPasswordSchema),
   ctrlWrapper(resetPasswordController),
 );
+
 export default router;
