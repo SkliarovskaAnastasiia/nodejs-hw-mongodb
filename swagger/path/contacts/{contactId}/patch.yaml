@@ -1,0 +1,72 @@
+tags:
+  - Contacts
+summary: Patch contact
+operationId: patchContact
+description: Update contact by id
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: contactId
+    required: true
+    schema:
+      type: string
+      example: 507f1f77bcf86cd799439011
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+            description: Contact name
+            example: Piter Parker
+          phoneNumber:
+            type: string
+            description: Contact phone number
+            example: '+38000000000'
+          email:
+            type: string
+            description: Contact email
+            example: p.parker@gmail.com
+          isFavourite:
+            type: boolean
+            description: Is contact in favourite list
+            example: true
+            default: false
+          contactType:
+            type: string
+            description: Contact type
+            enum: ['work', 'home', 'personal']
+            example: work
+          photo:
+            type: string
+            format: binary
+            description: Contact photo
+responses:
+  '200':
+    description: Updated contact
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully patched a contact
+            data:
+              $ref: ../../../components/schemas/contact.yaml
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '404':
+    $ref: ../../../components/responses/404.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml

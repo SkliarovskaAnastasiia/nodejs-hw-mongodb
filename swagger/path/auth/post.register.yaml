@@ -1,0 +1,52 @@
+tags:
+  - Auth
+summary: Registration route
+operationId: register
+description: Register user
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            type: string
+            description: User name
+            example: Peter Parker
+          email:
+            type: string
+            description: User email
+            example: p.parker@gmail.com
+          password:
+            type: string
+            description: User password
+responses:
+  '201':
+    description: Registered a user
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully registered a user
+            data:
+              $ref: ../../components/schemas/user.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '500':
+    $ref: '../../components/responses/500.yaml'
