@@ -15,10 +15,21 @@ export const registerUser = async (payload) => {
 
   const encreptedPassword = await bcrypt.hash(payload.password, 10);
 
-  return await usersCollection.create({
+  const newUser = await usersCollection.create({
     ...payload,
     password: encreptedPassword,
   });
+
+  await sessionsCollection.deleteOne({ userId: newUser._id });
+
+  const newSession = createSession();
+
+  const session = await sessionsCollection.create({
+    userId: newUser._id,
+    ...newSession,
+  });
+
+  return { newUser, session };
 };
 
 export const loginUser = async ({ email, password }) => {
@@ -34,10 +45,12 @@ export const loginUser = async ({ email, password }) => {
 
   const newSession = createSession();
 
-  return await sessionsCollection.create({
+  const session = await sessionsCollection.create({
     userId: user._id,
     ...newSession,
   });
+
+  return { user, session };
 };
 
 export const refreshSession = async ({ sessionId, refreshToken }) => {

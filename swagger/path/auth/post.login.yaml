@@ -40,14 +40,7 @@ responses:
               type: string
               example: Successfully logged in an user
             data:
-              type: object
-              required:
-                - accessToken
-              properties:
-                accessToken:
-                  type: string
-                  description: User access token
-                  example: ClgQfWukUyfcUVv3uhfVEzSS2iWItcj7byNYjHL5
+              $ref: ../../components/schemas/user.yaml
   '401':
     $ref: ../../components/responses/401.yaml
   '500':
