@@ -3,11 +3,9 @@ import { isValidObjectId } from 'mongoose';
 
 export const createContactShema = Joi.object({
   name: Joi.string().min(3).max(20).required(),
-  phoneNumber: Joi.string()
-    .pattern(/^\+[0-9]{12}$/)
-    .required(),
+  phoneNumber: Joi.string().min(3).max(20).required(),
   email: Joi.string().email(),
-  isFavourite: Joi.boolean(),
+  isFavorite: Joi.boolean(),
   contactType: Joi.string().valid('work', 'home', 'personal').required(),
   userId: Joi.string().custom((value, helper) => {
     if (value && !isValidObjectId(value)) {
@@ -19,8 +17,8 @@ export const createContactShema = Joi.object({
 
 export const updateContactSchema = Joi.object({
   name: Joi.string().min(3).max(30),
-  phoneNumber: Joi.string().pattern(/^\+[0-9]{12}$/),
+  phoneNumber: Joi.string().min(3).max(20),
   email: Joi.string().email(),
-  isFavourite: Joi.boolean(),
+  isFavorite: Joi.boolean(),
   contactType: Joi.string().valid('work', 'home', 'personal'),
 });

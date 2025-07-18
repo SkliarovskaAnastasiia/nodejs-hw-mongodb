@@ -16,7 +16,7 @@ export const registerController = async (req, res) => {
   res.status(201).json({
     status: 201,
     message: 'Successfully registered a user',
-    data: newUser,
+    data: { user: newUser, token: session.accessToken },
   });
 };
 
@@ -27,7 +27,7 @@ export const loginController = async (req, res) => {
   res.status(200).json({
     status: 200,
     message: 'Successfully logged in an user',
-    data: user,
+    data: { user, token: session.accessToken },
   });
 };
 
@@ -36,12 +36,15 @@ export const refreshController = async (req, res) => {
     sessionId: req.cookies.sessionId,
     refreshToken: req.cookies.refreshToken,
   });
-
+  console.log(session);
   setupCookies(res, session);
 
   res.status(200).json({
     status: 200,
     message: 'Successfully refreshed a session',
+    data: {
+      token: session.accessToken,
+    },
   });
 };
 

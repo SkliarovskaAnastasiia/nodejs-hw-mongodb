@@ -17,7 +17,7 @@ import { getEnvVal } from '../utils/getEnvVal.js';
 export const getContactsController = async (req, res, next) => {
   const { page, perPage } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseOrderParams(req.query);
-  const { type, isFavourite } = parseFilterParams(req.query);
+  const { type, isFavorite } = parseFilterParams(req.query);
   const userId = req.user._id;
 
   const data = await getAllContacts({
@@ -27,7 +27,7 @@ export const getContactsController = async (req, res, next) => {
     sortBy,
     sortOrder,
     type,
-    isFavourite,
+    isFavorite,
   });
 
   res.status(200).json({

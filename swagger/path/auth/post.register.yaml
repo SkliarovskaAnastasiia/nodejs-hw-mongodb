@@ -45,7 +45,16 @@ responses:
               type: string
               example: Successfully registered a user
             data:
-              $ref: ../../components/schemas/user.yaml
+              type: object
+              required:
+                - user
+                - token
+              properties:
+                user:
+                  $ref: ../../components/schemas/user.yaml
+                token:
+                  type: string
+                  description: Access token
   '401':
     $ref: ../../components/responses/401.yaml
   '500':

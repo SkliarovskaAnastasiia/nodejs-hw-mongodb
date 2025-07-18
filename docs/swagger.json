@@ -306,7 +306,7 @@
           },
           {
             "in": "query",
-            "name": "isFavourite",
+            "name": "isFavorite",
             "schema": {
               "type": "boolean",
               "example": false
@@ -388,9 +388,9 @@
                     "description": "Contact email",
                     "example": "p.parker@gmail.com"
                   },
-                  "isFavourite": {
+                  "isFavorite": {
                     "type": "boolean",
-                    "description": "Is contact in favourite list",
+                    "description": "Is contact in favorite list",
                     "example": true,
                     "default": false
                   },
@@ -517,7 +517,20 @@
                       "example": "Successfully registered a user"
                     },
                     "data": {
-                      "$ref": "#/components/schemas/user"
+                      "type": "object",
+                      "required": [
+                        "user",
+                        "token"
+                      ],
+                      "properties": {
+                        "user": {
+                          "$ref": "#/components/schemas/user"
+                        },
+                        "token": {
+                          "type": "string",
+                          "description": "Access token"
+                        }
+                      }
                     }
                   }
                 }
@@ -592,7 +605,20 @@
                       "example": "Successfully logged in an user"
                     },
                     "data": {
-                      "$ref": "#/components/schemas/user"
+                      "type": "object",
+                      "required": [
+                        "user",
+                        "token"
+                      ],
+                      "properties": {
+                        "user": {
+                          "$ref": "#/components/schemas/user"
+                        },
+                        "token": {
+                          "type": "string",
+                          "description": "Access token"
+                        }
+                      }
                     }
                   }
                 }
@@ -641,6 +667,18 @@
                     "message": {
                       "type": "string",
                       "example": "Successfully refreshed a session"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "token"
+                      ],
+                      "properties": {
+                        "token": {
+                          "type": "string",
+                          "description": "Access token"
+                        }
+                      }
                     }
                   }
                 }
@@ -723,7 +761,7 @@
             "description": "Contact email",
             "example": "p.parker@gmail.com"
           },
-          "isFavourite": {
+          "isFavorite": {
             "type": "boolean",
             "description": "Is contact in favourite list",
             "example": true,

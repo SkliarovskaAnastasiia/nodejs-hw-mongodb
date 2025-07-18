@@ -24,7 +24,7 @@ properties:
     type: string
     description: Contact email
     example: p.parker@gmail.com
-  isFavourite:
+  isFavorite:
     type: boolean
     description: Is contact in favourite list
     example: true
