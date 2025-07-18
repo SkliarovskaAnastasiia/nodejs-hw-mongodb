@@ -23,15 +23,6 @@ responses:
             message:
               type: string
               example: Successfully refreshed a session
-            data:
-              type: object
-              required:
-                - accessToken
-              properties:
-                accessToken:
-                  type: string
-                  description: Refresh user access token
-                  example: ClgQfWukUyfcUVv3uhfVEzSS2iWItcj7byNYjHL5
   '401':
     $ref: ../../components/responses/401.yaml
   '500':

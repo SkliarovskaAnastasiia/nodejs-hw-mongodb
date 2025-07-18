@@ -9,26 +9,25 @@ import {
 import { setupCookies } from '../utils/setupSession.js';
 
 export const registerController = async (req, res) => {
-  const user = await registerUser(req.body);
-  console.log(user);
+  const { newUser, session } = await registerUser(req.body);
+
+  setupCookies(res, session);
+
   res.status(201).json({
     status: 201,
     message: 'Successfully registered a user',
-    data: user,
+    data: newUser,
   });
 };
 
 export const loginController = async (req, res) => {
-  const session = await loginUser(req.body);
-
+  const { user, session } = await loginUser(req.body);
   setupCookies(res, session);
 
   res.status(200).json({
     status: 200,
     message: 'Successfully logged in an user',
-    data: {
-      accessToken: session.accessToken,
-    },
+    data: user,
   });
 };
 
@@ -43,7 +42,6 @@ export const refreshController = async (req, res) => {
   res.status(200).json({
     status: 200,
     message: 'Successfully refreshed a session',
-    data: { accessToken: session.accessToken },
   });
 };
 

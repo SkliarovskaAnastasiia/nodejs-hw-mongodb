@@ -14,7 +14,7 @@ const PORT = Number(getEnvVal('PORT', '3000'));
 const setupServer = () => {
   const app = express();
 
-  app.use(cors());
+  app.use(cors({ credentials: true }));
   app.use(pino({ transport: { target: 'pino-pretty' } }));
   app.use(cookieParser());
   app.use('/photos', express.static(UPLOAD_DIR));
